@@ -25,3 +25,4 @@ setborderpx(const Arg *arg)
 	}
 	arrange(m);
 }
+

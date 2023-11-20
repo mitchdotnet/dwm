@@ -76,37 +76,19 @@ static char urgfloatcolor[]              = "#db8fd9";
 static char tagactivefgcolor[]		 = "#dddddd";
 static char tagactivebgcolor[]		 = "#000000";
 
-/*static char tag1fgcolor[] = "#dddddd";
-static char tag1bgcolor[] = "#000000";
-static char tag2fgcolor[] = "#dddddd";
-static char tag2bgcolor[] = "#000000";
-static char tag3fgcolor[] = "#dddddd";
-static char tag3bgcolor[] = "#000000";
-static char tag4fgcolor[] = "#dddddd";
-static char tag4bgcolor[] = "#000000";
-static char tag5fgcolor[] = "#dddddd";
-static char tag5bgcolor[] = "#000000";
-static char tag6fgcolor[] = "#dddddd";
-static char tag6bgcolor[] = "#000000";
-static char tag7fgcolor[] = "#dddddd";
-static char tag7bgcolor[] = "#000000";
-static char tag8fgcolor[] = "#dddddd";
-static char tag8bgcolor[] = "#000000";
-static char tag9fgcolor[] = "#dddddd";
-static char tag9bgcolor[] = "#000000";*/
-static char layoutfgcolor[] = "#dddddd";
-static char layoutbgcolor[] = "#000000";
+static char layoutfgcolor[]              = "#dddddd";
+static char layoutbgcolor[]              = "#000000";
 
 
 static const unsigned int baralpha = 0;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3] = {
 	/*                       fg      bg        border     */
-	[SchemeNorm]         = { OPAQUE, baralpha, baralpha },
-	[SchemeSel]          = { OPAQUE, baralpha, baralpha },
-	[SchemeTitleNorm]    = { OPAQUE, baralpha, baralpha },
+	[SchemeNorm]         = { OPAQUE, baralpha, borderalpha },
+	[SchemeSel]          = { OPAQUE, baralpha, borderalpha },
+	[SchemeTitleNorm]    = { OPAQUE, baralpha, borderalpha },
 	[SchemeTitleSel]     = { OPAQUE, baralpha, borderalpha },
-	[SchemeTagsNorm]     = { OPAQUE, baralpha, baralpha },
+	[SchemeTagsNorm]     = { OPAQUE, baralpha, borderalpha },
 	[SchemeTagsSel]      = { OPAQUE, baralpha, borderalpha },
 	[SchemeHidNorm]      = { OPAQUE, baralpha, borderalpha },
 	[SchemeHidSel]       = { OPAQUE, baralpha, borderalpha },
@@ -359,10 +341,6 @@ static const Key keys[] = {
 	{ MODKEY,	                XK_q,          killclient,             {0} },
 	{ MODKEY|ControlMask,           XK_q,          quit,                   {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_q,          quit,                   {1} },
-//	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
-//	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[1]} },
-//	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[2]} },
-//	{ MODKEY,                       XK_c,          setlayout,              {.v = &layouts[3]} },
 	{ MODKEY|ControlMask,           XK_t,          rotatelayoutaxis,       {.i = +1 } },   /* flextile, 1 = layout axis */
 	{ MODKEY|ControlMask,           XK_Tab,        rotatelayoutaxis,       {.i = +2 } },   /* flextile, 2 = master axis */
 	{ MODKEY|ControlMask|ShiftMask, XK_Tab,        rotatelayoutaxis,       {.i = +3 } },   /* flextile, 3 = stack axis */
