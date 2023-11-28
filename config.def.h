@@ -6,14 +6,14 @@
 static const unsigned int borderpx       = 0;   /* border pixel of windows */
 static const unsigned int snap           = 32;  /* snap pixel */
 static const int swallowfloating         = 0;   /* 1 means swallow floating windows by default */
-static const unsigned int gappih         = 16;  /* horiz inner gap between windows */
-static const unsigned int gappiv         = 16;  /* vert inner gap between windows */
-static const unsigned int gappoh         = 16;  /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov         = 16;  /* vert outer gap between windows and screen edge */
+static const unsigned int gappih         = 35;  /* horiz inner gap between windows */
+static const unsigned int gappiv         = 35;  /* vert inner gap between windows */
+static const unsigned int gappoh         = 35;  /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov         = 35;  /* vert outer gap between windows and screen edge */
 static const int smartgaps_fact          = 1;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
 static const int showbar                 = 1;   /* 0 means no bar */
 static const int topbar                  = 1;   /* 0 means bottom bar */
-#define ICONSIZE 18    /* icon size */
+#define ICONSIZE 20    /* icon size */
 #define ICONSPACING 5  /* space between icon and title */
 /* Status is to be shown on: -1 (all monitors), 0 (a specific monitor by index), 'A' (active monitor) */
 static const int statusmon               = 'A';
@@ -28,7 +28,7 @@ static const int ulineall = 0;                  /* 1 to show underline on all ta
 static int tagindicatortype              = INDICATOR_NONE;
 static int tiledindicatortype            = INDICATOR_NONE;
 static int floatindicatortype            = INDICATOR_NONE;
-static const char *fonts[]               = {"Inconsolata Semi Condensed Bold:size=13:antialias=true:autohint=true", "Font Awesome 6 Pro:style=solid:size=11"};
+static const char *fonts[]               = {"Inconsolata Semi Condensed Bold:size=14:antialias=true:autohint=true", "Font Awesome 6 Pro:style=solid:size=12"};
 static const char dmenufont[]            = "monospace:size=10";
 
 static char c000000[]                    = "#000000"; // placeholder value
@@ -38,7 +38,7 @@ static char normbgcolor[]                = "#000000";
 static char normbordercolor[]            = "#ffffff";
 static char normfloatcolor[]             = "#db8fd9";
 
-static char selfgcolor[]                 = "#eeeeee";
+static char selfgcolor[]                 = "#dddddd";
 static char selbgcolor[]                 = "#000000";
 static char selbordercolor[]             = "#000000";
 static char selfloatcolor[]              = "#005577";
@@ -48,7 +48,7 @@ static char titlenormbgcolor[]           = "#000000";
 static char titlenormbordercolor[]       = "#444444";
 static char titlenormfloatcolor[]        = "#db8fd9";
 
-static char titleselfgcolor[]            = "#eeeeee";
+static char titleselfgcolor[]            = "#dddddd";
 static char titleselbgcolor[]            = "#000000";
 static char titleselbordercolor[]        = "#000000";
 static char titleselfloatcolor[]         = "#005577";
@@ -58,7 +58,7 @@ static char tagsnormbgcolor[]            = "#000000";
 static char tagsnormbordercolor[]        = "#000000";
 static char tagsnormfloatcolor[]         = "#db8fd9";
 
-static char tagsselfgcolor[]             = "#eeeeee";
+static char tagsselfgcolor[]             = "#dddddd";
 static char tagsselbgcolor[]             = "#000000";
 static char tagsselbordercolor[]         = "#005577";
 static char tagsselfloatcolor[]          = "#005577";
@@ -76,19 +76,37 @@ static char urgfloatcolor[]              = "#db8fd9";
 static char tagactivefgcolor[]		 = "#dddddd";
 static char tagactivebgcolor[]		 = "#000000";
 
-static char layoutfgcolor[]              = "#dddddd";
-static char layoutbgcolor[]              = "#000000";
+/*static char tag1fgcolor[] = "#dddddd";
+static char tag1bgcolor[] = "#000000";
+static char tag2fgcolor[] = "#dddddd";
+static char tag2bgcolor[] = "#000000";
+static char tag3fgcolor[] = "#dddddd";
+static char tag3bgcolor[] = "#000000";
+static char tag4fgcolor[] = "#dddddd";
+static char tag4bgcolor[] = "#000000";
+static char tag5fgcolor[] = "#dddddd";
+static char tag5bgcolor[] = "#000000";
+static char tag6fgcolor[] = "#dddddd";
+static char tag6bgcolor[] = "#000000";
+static char tag7fgcolor[] = "#dddddd";
+static char tag7bgcolor[] = "#000000";
+static char tag8fgcolor[] = "#dddddd";
+static char tag8bgcolor[] = "#000000";
+static char tag9fgcolor[] = "#dddddd";
+static char tag9bgcolor[] = "#000000";*/
+static char layoutfgcolor[] = "#dddddd";
+static char layoutbgcolor[] = "#000000";
 
 
 static const unsigned int baralpha = 0;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3] = {
 	/*                       fg      bg        border     */
-	[SchemeNorm]         = { OPAQUE, baralpha, borderalpha },
-	[SchemeSel]          = { OPAQUE, baralpha, borderalpha },
-	[SchemeTitleNorm]    = { OPAQUE, baralpha, borderalpha },
+	[SchemeNorm]         = { OPAQUE, baralpha, baralpha },
+	[SchemeSel]          = { OPAQUE, baralpha, baralpha },
+	[SchemeTitleNorm]    = { OPAQUE, baralpha, baralpha },
 	[SchemeTitleSel]     = { OPAQUE, baralpha, borderalpha },
-	[SchemeTagsNorm]     = { OPAQUE, baralpha, borderalpha },
+	[SchemeTagsNorm]     = { OPAQUE, baralpha, baralpha },
 	[SchemeTagsSel]      = { OPAQUE, baralpha, borderalpha },
 	[SchemeHidNorm]      = { OPAQUE, baralpha, borderalpha },
 	[SchemeHidSel]       = { OPAQUE, baralpha, borderalpha },
@@ -132,7 +150,7 @@ static char *colors[][ColCount] = {
 
 
 
-const char *spcmd1[] = {"st", "-n", "scratchpad", "-t", "scratchpad", "-g", "80x25", NULL };
+const char *spcmd1[] = {"st", "-t", "scratchpad", "-n", "scratchpad", "-g", "80x25", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"scratchpad",      spcmd1},
@@ -202,9 +220,9 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
-	RULE(.class = "Gimp", .tags = 1 << 4)
+//	RULE(.class = "Gimp", .tags = 1 << 4)
 	RULE(.class = "firefox", .isfloating = 1)
-	RULE(.instance = "scratchpad", .tags = SPTAG(0), .isterminal = 1, .isfloating = 1)
+	RULE(.instance = "scratchpad", .tags = SPTAG(0), .isfloating = 1, .isterminal = 1)
 	RULE(.instance = "st", .isterminal = 1)
 };
 
@@ -273,7 +291,7 @@ static const Layout layouts[] = {
 
 
 /* key definitions */
-#define MODKEY Mod4Mask
+#define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -310,8 +328,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	{ MODKEY,                       XK_j,          focusstack,             {.i = -1 } },
 	{ MODKEY,                       XK_k,          focusstack,             {.i = +1 } },
-	{ MODKEY|Mod1Mask,              XK_j,          rotatestack,            {.i = +1 } },
-	{ MODKEY|Mod1Mask,              XK_k,          rotatestack,            {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_j,          rotatestack,            {.i = +1 } },
+	{ MODKEY|Mod4Mask,              XK_k,          rotatestack,            {.i = -1 } },
 	{ MODKEY,                       XK_i,          incnmaster,             {.i = +1 } },
 	{ MODKEY,                       XK_d,          incnmaster,             {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_i,          incnstack,              {.i = +1 } },
@@ -321,34 +339,38 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_j,          movestack,              {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_k,          movestack,              {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_Return,     zoom,                   {0} },
-	{ MODKEY|Mod1Mask,              XK_u,          incrgaps,               {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_u,          incrgaps,               {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_i,          incrigaps,              {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_i,          incrigaps,              {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_o,          incrogaps,              {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_o,          incrogaps,              {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_6,          incrihgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_6,          incrihgaps,             {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_7,          incrivgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_7,          incrivgaps,             {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_8,          incrohgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_8,          incrohgaps,             {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_9,          incrovgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_9,          incrovgaps,             {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_0,          togglegaps,             {0} },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_0,          defaultgaps,            {0} },
+	{ MODKEY|Mod4Mask,              XK_u,          incrgaps,               {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,          incrgaps,               {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_i,          incrigaps,              {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,          incrigaps,              {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_o,          incrogaps,              {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,          incrogaps,              {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_6,          incrihgaps,             {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_6,          incrihgaps,             {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_7,          incrivgaps,             {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_7,          incrivgaps,             {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_8,          incrohgaps,             {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_8,          incrohgaps,             {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_9,          incrovgaps,             {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,          incrovgaps,             {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_0,          togglegaps,             {0} },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,          defaultgaps,            {0} },
 	{ MODKEY,                       XK_Tab,        view,                   {0} },
 	{ MODKEY,	                XK_q,          killclient,             {0} },
 	{ MODKEY|ControlMask,           XK_q,          quit,                   {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_q,          quit,                   {1} },
+//	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
+//	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[1]} },
+//	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[2]} },
+//	{ MODKEY,                       XK_c,          setlayout,              {.v = &layouts[3]} },
 	{ MODKEY|ControlMask,           XK_t,          rotatelayoutaxis,       {.i = +1 } },   /* flextile, 1 = layout axis */
 	{ MODKEY|ControlMask,           XK_Tab,        rotatelayoutaxis,       {.i = +2 } },   /* flextile, 2 = master axis */
 	{ MODKEY|ControlMask|ShiftMask, XK_Tab,        rotatelayoutaxis,       {.i = +3 } },   /* flextile, 3 = stack axis */
-	{ MODKEY|ControlMask|Mod1Mask,  XK_Tab,        rotatelayoutaxis,       {.i = +4 } },   /* flextile, 4 = secondary stack axis */
+	{ MODKEY|ControlMask|Mod4Mask,  XK_Tab,        rotatelayoutaxis,       {.i = +4 } },   /* flextile, 4 = secondary stack axis */
 	{ MODKEY|Mod5Mask,              XK_t,          rotatelayoutaxis,       {.i = -1 } },   /* flextile, 1 = layout axis */
 	{ MODKEY|Mod5Mask,              XK_Tab,        rotatelayoutaxis,       {.i = -2 } },   /* flextile, 2 = master axis */
 	{ MODKEY|Mod5Mask|ShiftMask,    XK_Tab,        rotatelayoutaxis,       {.i = -3 } },   /* flextile, 3 = stack axis */
-	{ MODKEY|Mod5Mask|Mod1Mask,     XK_Tab,        rotatelayoutaxis,       {.i = -4 } },   /* flextile, 4 = secondary stack axis */
+	{ MODKEY|Mod5Mask|Mod4Mask,     XK_Tab,        rotatelayoutaxis,       {.i = -4 } },   /* flextile, 4 = secondary stack axis */
 	{ MODKEY|ControlMask,           XK_Return,     mirrorlayout,           {0} },          /* flextile, flip master and stack areas */
 	{ MODKEY,                       XK_space,      setlayout,              {0} },
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
@@ -367,9 +389,10 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_comma,      cyclelayout,            {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period,     cyclelayout,            {.i = +1 } },
 	{ MODKEY,                       XK_c,          spawn,                  SHCMD("rofi -show drun")},
-	{0,	                        XF86XK_AudioLowerVolume,   spawn,         SHCMD("pamixer -d 1; kill -46 $(pidof dwmblocks)") }, 
-	{0,                             XF86XK_AudioMute,          spawn,         SHCMD("pamixer -t; kill -46 $(pidof dwmblocks)") }, 
-	{0,                             XF86XK_AudioRaiseVolume,   spawn,         SHCMD("pamixer -i 1; kill -46 $(pidof dwmblocks)") },
+	{ MODKEY,			XK_v,          spawn,                  SHCMD("iwdmenu")},
+	{0,	                        XF86XK_AudioLowerVolume,   spawn,         SHCMD("pamixer -d 1; kill -47 $(pidof dwmblocks)") }, 
+	{0,                             XF86XK_AudioMute,          spawn,         SHCMD("pamixer -t; kill -47 $(pidof dwmblocks)") }, 
+	{0,                             XF86XK_AudioRaiseVolume,   spawn,         SHCMD("pamixer -i 1; kill -47 $(pidof dwmblocks)") },
 	{0,	                        XF86XK_MonBrightnessUp,    spawn,         SHCMD("xbacklight -inc 5; kill -45 $(pidof dwmblocks)") },
 	{0,	                        XF86XK_MonBrightnessDown,  spawn,         SHCMD("xbacklight -dec 5; kill -45 $(pidof dwmblocks)") },			
 	{MODKEY,                        XK_u,                      spawn,	  SHCMD("maim -u ~/Screenshot_$(date +%Y_%m_%d_%H%M%S).png && notify-send \"Screenshot Captured\" \"Screenshot_$(date +%Y_%m_%d_%H%M%S)\"")},
