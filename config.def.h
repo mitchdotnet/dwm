@@ -3,13 +3,13 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx       = 0;   /* border pixel of windows */
+static const unsigned int borderpx       = 2;   /* border pixel of windows */
 static const unsigned int snap           = 32;  /* snap pixel */
 static const int swallowfloating         = 0;   /* 1 means swallow floating windows by default */
-static const unsigned int gappih         = 16;  /* horiz inner gap between windows */
-static const unsigned int gappiv         = 16;  /* vert inner gap between windows */
-static const unsigned int gappoh         = 16;  /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov         = 16;  /* vert outer gap between windows and screen edge */
+static const unsigned int gappih         = 34;  /* horiz inner gap between windows */
+static const unsigned int gappiv         = 34;  /* vert inner gap between windows */
+static const unsigned int gappoh         = 34;  /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov         = 34;  /* vert outer gap between windows and screen edge */
 static const int smartgaps_fact          = 1;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
 static const int showbar                 = 1;   /* 0 means no bar */
 static const int topbar                  = 1;   /* 0 means bottom bar */
@@ -18,7 +18,7 @@ static const int topbar                  = 1;   /* 0 means bottom bar */
 /* Status is to be shown on: -1 (all monitors), 0 (a specific monitor by index), 'A' (active monitor) */
 static const int statusmon               = 'A';
 static const int horizpadbar             = 2;   /* horizontal padding for statusbar */
-static const int vertpadbar              = 8;   /* vertical padding for statusbar */
+static const int vertpadbar              = 12;  /* vertical padding for statusbar */
 static const unsigned int ulinepad = 5;         /* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke  = 2;     /* thickness / height of the underline */
 static const unsigned int ulinevoffset = 0;     /* how far above the bottom of the bar the line should appear */
@@ -35,17 +35,17 @@ static char c000000[]                    = "#000000"; // placeholder value
 
 static char normfgcolor[]                = "#bbbbbb";
 static char normbgcolor[]                = "#000000";
-static char normbordercolor[]            = "#ffffff";
-static char normfloatcolor[]             = "#db8fd9";
+static char normbordercolor[]            = "#282828";
+static char normfloatcolor[]             = "#282828";
 
 static char selfgcolor[]                 = "#eeeeee";
 static char selbgcolor[]                 = "#000000";
-static char selbordercolor[]             = "#000000";
-static char selfloatcolor[]              = "#005577";
+static char selbordercolor[]             = "#83a598";
+static char selfloatcolor[]              = "#83a598";
 
 static char titlenormfgcolor[]           = "#bbbbbb";
 static char titlenormbgcolor[]           = "#000000";
-static char titlenormbordercolor[]       = "#444444";
+static char titlenormbordercolor[]       = "#000000";
 static char titlenormfloatcolor[]        = "#db8fd9";
 
 static char titleselfgcolor[]            = "#eeeeee";
@@ -60,7 +60,7 @@ static char tagsnormfloatcolor[]         = "#db8fd9";
 
 static char tagsselfgcolor[]             = "#eeeeee";
 static char tagsselbgcolor[]             = "#000000";
-static char tagsselbordercolor[]         = "#005577";
+static char tagsselbordercolor[]         = "#000000";
 static char tagsselfloatcolor[]          = "#005577";
 
 static char hidnormfgcolor[]             = "#005577";
@@ -203,7 +203,7 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
 	RULE(.class = "Gimp", .tags = 1 << 4)
-	RULE(.class = "firefox", .isfloating = 1)
+//	RULE(.class = "firefox", .isfloating = 1)
 	RULE(.instance = "scratchpad", .tags = SPTAG(0), .isterminal = 1, .isfloating = 1)
 	RULE(.instance = "st", .isterminal = 1)
 };
