@@ -35,13 +35,13 @@ static char c000000[]                    = "#000000"; // placeholder value
 
 static char normfgcolor[]                = "#bbbbbb";
 static char normbgcolor[]                = "#000000";
-static char normbordercolor[]            = "#ffffff";
-static char normfloatcolor[]             = "#db8fd9";
+static char normbordercolor[]            = "#282828";
+static char normfloatcolor[]             = "#282828";
 
 static char selfgcolor[]                 = "#dddddd";
 static char selbgcolor[]                 = "#000000";
-static char selbordercolor[]             = "#000000";
-static char selfloatcolor[]              = "#005577";
+static char selbordercolor[]             = "#83a598";
+static char selfloatcolor[]              = "#83a598";
 
 static char titlenormfgcolor[]           = "#bbbbbb";
 static char titlenormbgcolor[]           = "#000000";
@@ -102,11 +102,11 @@ static const unsigned int baralpha = 0;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3] = {
 	/*                       fg      bg        border     */
-	[SchemeNorm]         = { OPAQUE, baralpha, baralpha },
-	[SchemeSel]          = { OPAQUE, baralpha, baralpha },
-	[SchemeTitleNorm]    = { OPAQUE, baralpha, baralpha },
+	[SchemeNorm]         = { OPAQUE, baralpha, borderalpha },
+	[SchemeSel]          = { OPAQUE, baralpha, borderalpha },
+	[SchemeTitleNorm]    = { OPAQUE, baralpha, borderalpha },
 	[SchemeTitleSel]     = { OPAQUE, baralpha, borderalpha },
-	[SchemeTagsNorm]     = { OPAQUE, baralpha, baralpha },
+	[SchemeTagsNorm]     = { OPAQUE, baralpha, borderalpha },
 	[SchemeTagsSel]      = { OPAQUE, baralpha, borderalpha },
 	[SchemeHidNorm]      = { OPAQUE, baralpha, borderalpha },
 	[SchemeHidSel]       = { OPAQUE, baralpha, borderalpha },
@@ -383,8 +383,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period,     focusmon,               {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,      tagmon,                 {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
-	{ MODKEY|ControlMask,           XK_minus,      setborderpx,            {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_plus,       setborderpx,            {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_n,          setborderpx,            {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_m,          setborderpx,            {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_numbersign, setborderpx,            {.i = 0 } },
 	{ MODKEY|ControlMask,           XK_comma,      cyclelayout,            {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period,     cyclelayout,            {.i = +1 } },
