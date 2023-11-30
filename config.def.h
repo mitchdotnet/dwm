@@ -221,7 +221,7 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
 //	RULE(.class = "Gimp", .tags = 1 << 4)
-	RULE(.class = "firefox", .isfloating = 1)
+//	RULE(.class = "firefox", .isfloating = 1)
 	RULE(.instance = "scratchpad", .tags = SPTAG(0), .isfloating = 1, .isterminal = 1)
 	RULE(.instance = "st", .isterminal = 1)
 };
@@ -383,8 +383,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period,     focusmon,               {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,      tagmon,                 {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
-	{ MODKEY|ControlMask,           XK_n,          setborderpx,            {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_m,          setborderpx,            {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_minus,          setborderpx,            {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_equal,          setborderpx,            {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_numbersign, setborderpx,            {.i = 0 } },
 	{ MODKEY|ControlMask,           XK_comma,      cyclelayout,            {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period,     cyclelayout,            {.i = +1 } },
