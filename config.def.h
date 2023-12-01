@@ -3,7 +3,7 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx       = 2;   /* border pixel of windows */
+static const unsigned int borderpx       = 0;   /* border pixel of windows */
 static const unsigned int snap           = 32;  /* snap pixel */
 static const int swallowfloating         = 0;   /* 1 means swallow floating windows by default */
 static const unsigned int gappih         = 34;  /* horiz inner gap between windows */
@@ -21,7 +21,7 @@ static const int horizpadbar             = 2;   /* horizontal padding for status
 static const int vertpadbar              = 12;  /* vertical padding for statusbar */
 static const unsigned int ulinepad = 5;         /* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke  = 2;     /* thickness / height of the underline */
-static const unsigned int ulinevoffset = 0;     /* how far above the bottom of the bar the line should appear */
+static const unsigned int ulinevoffset = 2;     /* how far above the bottom of the bar the line should appear */
 static const int ulineall = 0;                  /* 1 to show underline on all tags, 0 for just the active ones */
 
 /* Indicators: see patch/bar_indicators.h for options */
@@ -362,7 +362,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,      tagmon,                 {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_minus,      setborderpx,            {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_plus,       setborderpx,            {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_equal,      setborderpx,            {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_numbersign, setborderpx,            {.i = 0 } },
 	{ MODKEY|ControlMask,           XK_comma,      cyclelayout,            {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period,     cyclelayout,            {.i = +1 } },
