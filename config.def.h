@@ -6,10 +6,10 @@
 static const unsigned int borderpx       = 0;   /* border pixel of windows */
 static const unsigned int snap           = 32;  /* snap pixel */
 static const int swallowfloating         = 0;   /* 1 means swallow floating windows by default */
-static const unsigned int gappih         = 37;  /* horiz inner gap between windows */
-static const unsigned int gappiv         = 37;  /* vert inner gap between windows */
-static const unsigned int gappoh         = 37;  /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov         = 37;  /* vert outer gap between windows and screen edge */
+static const unsigned int gappih         = 34;  /* horiz inner gap between windows */
+static const unsigned int gappiv         = 34;  /* vert inner gap between windows */
+static const unsigned int gappoh         = 34;  /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov         = 34;  /* vert outer gap between windows and screen edge */
 static const int smartgaps_fact          = 1;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
 static const int showbar                 = 1;   /* 0 means no bar */
 static const int topbar                  = 1;   /* 0 means bottom bar */
@@ -18,10 +18,10 @@ static const int topbar                  = 1;   /* 0 means bottom bar */
 /* Status is to be shown on: -1 (all monitors), 0 (a specific monitor by index), 'A' (active monitor) */
 static const int statusmon               = 'A';
 static const int horizpadbar             = 2;   /* horizontal padding for statusbar */
-static const int vertpadbar              = 8;   /* vertical padding for statusbar */
+static const int vertpadbar              = 12;   /* vertical padding for statusbar */
 static const unsigned int ulinepad = 5;         /* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke  = 2;     /* thickness / height of the underline */
-static const unsigned int ulinevoffset = 0;     /* how far above the bottom of the bar the line should appear */
+static const unsigned int ulinevoffset = 2;     /* how far above the bottom of the bar the line should appear */
 static const int ulineall = 0;                  /* 1 to show underline on all tags, 0 for just the active ones */
 
 /* Indicators: see patch/bar_indicators.h for options */
@@ -383,8 +383,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period,     focusmon,               {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,      tagmon,                 {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
-	{ MODKEY|ControlMask,           XK_minus,          setborderpx,            {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_equal,          setborderpx,            {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_minus,      setborderpx,            {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_equal,      setborderpx,            {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_numbersign, setborderpx,            {.i = 0 } },
 	{ MODKEY|ControlMask,           XK_comma,      cyclelayout,            {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period,     cyclelayout,            {.i = +1 } },
