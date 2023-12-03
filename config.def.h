@@ -191,7 +191,7 @@ static char *tagicons[][NUMTAGS] =
  * Refer to the Rule struct definition for the list of available fields depending on
  * the patches you enable.
  */
-static const Rule rules[] = {
+ static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
@@ -203,11 +203,12 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
 	RULE(.class = "Gimp", .isfloating = 1)
+	RULE(.class = "firefox", .isfloating = 1, .iscentered = 1)
+	RULE(.class = "Navigator", .isfloating = 1, .iscentered = 1)
+	RULE(.class = "Browser", .isfloating = 1, .iscentered = 1)
 	RULE(.instance = "scratchpad", .tags = SPTAG(0), .isterminal = 1, .isfloating = 1)
 	RULE(.instance = "st", .isterminal = 1)
 };
-
-
 
 /* Bar rules allow you to configure what is shown where on the bar, as well as
  * introducing your own bar modules.
