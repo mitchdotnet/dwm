@@ -38,7 +38,7 @@ static char normbgcolor[]                = "#000000";
 static char normbordercolor[]            = "#282828";
 static char normfloatcolor[]             = "#282828";
 
-static char selfgcolor[]                 = "#eeeeee";
+static char selfgcolor[]                 = "#dddddd";
 static char selbgcolor[]                 = "#000000";
 static char selbordercolor[]             = "#83a598";
 static char selfloatcolor[]              = "#83a598";
@@ -48,7 +48,7 @@ static char titlenormbgcolor[]           = "#000000";
 static char titlenormbordercolor[]       = "#000000";
 static char titlenormfloatcolor[]        = "#db8fd9";
 
-static char titleselfgcolor[]            = "#eeeeee";
+static char titleselfgcolor[]            = "#dddddd";
 static char titleselbgcolor[]            = "#000000";
 static char titleselbordercolor[]        = "#000000";
 static char titleselfloatcolor[]         = "#005577";
@@ -58,7 +58,7 @@ static char tagsnormbgcolor[]            = "#000000";
 static char tagsnormbordercolor[]        = "#000000";
 static char tagsnormfloatcolor[]         = "#db8fd9";
 
-static char tagsselfgcolor[]             = "#eeeeee";
+static char tagsselfgcolor[]             = "#dddddd";
 static char tagsselbgcolor[]             = "#000000";
 static char tagsselbordercolor[]         = "#000000";
 static char tagsselfloatcolor[]          = "#005577";
@@ -204,8 +204,7 @@ static char *tagicons[][NUMTAGS] =
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
 	RULE(.class = "Gimp", .isfloating = 1)
 	RULE(.class = "firefox", .isfloating = 1, .iscentered = 1)
-	RULE(.class = "Navigator", .isfloating = 1, .iscentered = 1)
-	RULE(.class = "Browser", .isfloating = 1, .iscentered = 1)
+	RULE(.class = "gnote", .isfloating = 1, .iscentered = 1)
 	RULE(.instance = "scratchpad", .tags = SPTAG(0), .isterminal = 1, .isfloating = 1)
 	RULE(.instance = "st", .isterminal = 1)
 };
@@ -375,6 +374,7 @@ static const Key keys[] = {
 	{MODKEY,                        XK_u,                      spawn,	  SHCMD("maim -u ~/Screenshot_$(date +%Y_%m_%d_%H%M%S).png && notify-send \"Screenshot Captured\" \"Screenshot_$(date +%Y_%m_%d_%H%M%S)\"")},
 	{MODKEY|ShiftMask,              XK_u,                      spawn,	  SHCMD("maim -us ~/Screenshot_$(date +%Y_%m_%d_%H%M%S).png && notify-send \"Screenshot Captured\" \"Screenshot_$(date +%Y_%m_%d_%H%M%S)\"")},
 	{MODKEY|ShiftMask,		XK_q,       		   spawn,         SHCMD("/home/mitch/.config/rofi/powermenu/type-1/powermenu.sh") },
+	{MODKEY,			XK_n,			   spawn,         SHCMD("gnote --new-note") },
 	TAGKEYS(                        XK_1,                                  0)
 	TAGKEYS(                        XK_2,                                  1)
 	TAGKEYS(                        XK_3,                                  2)
