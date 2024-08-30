@@ -21,7 +21,7 @@
 #include "restartsig.c"
 #include "rotatestack.c"
 #include "scratchpad.c"
-#include "setborderpx.c"
+//#include "setborderpx.c"
 #include "swallow.c"
 #include "vanitygaps.c"
 #include "seamless_restart.c"

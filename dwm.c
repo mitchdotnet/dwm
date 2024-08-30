@@ -2151,10 +2151,20 @@ showhide(Client *c)
 	if (!c)
 		return;
 	if (ISVISIBLE(c)) {
-		if ((c->tags & SPTAGMASK) && c->isfloating) {
+		if (
+			(c->tags & SPTAGMASK) &&
+			c->isfloating &&
+			(
+				c->x < c->mon->mx ||
+				c->x > c->mon->mx + c->mon->mw ||
+				c->y < c->mon->my ||
+				c->y > c->mon->my + c->mon->mh
+			)
+		) {
 			c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
 			c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
 		}
+
 		/* show clients top down */
 		XMoveWindow(dpy, c->win, c->x, c->y);
 		if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating)

@@ -3,7 +3,7 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx       = 0;   /* border pixel of windows */
+static const unsigned int borderpx       = 1;   /* border pixel of windows */
 static const unsigned int snap           = 32;  /* snap pixel */
 static const int swallowfloating         = 0;   /* 1 means swallow floating windows by default */
 static const unsigned int gappih         = 34;  /* horiz inner gap between windows */
@@ -132,7 +132,7 @@ static char *colors[][ColCount] = {
 
 
 
-const char *spcmd1[] = {"st", "-n", "scratchpad", "-t", "scratchpad", "-g", "80x25", NULL };
+const char *spcmd1[] = {"st", "-n", "scratchpad", "-t", "scratchpad", "-g", "80x24", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"scratchpad",      spcmd1},
@@ -202,6 +202,8 @@ static char *tagicons[][NUMTAGS] =
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
+	RULE(.class = "zenity", .isfloating = 1, .iscentered = 1)
+	RULE(.class = "scummvm", .isfloating = 1, .iscentered = 1)
 	RULE(.class = "Gimp", .isfloating = 1)
 	RULE(.class = "firefox", .isfloating = 1, .iscentered = 1)
 	RULE(.class = "gnote", .isfloating = 1, .iscentered = 1)
@@ -360,17 +362,17 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period,     focusmon,               {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,      tagmon,                 {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
-	{ MODKEY|ControlMask,           XK_minus,      setborderpx,            {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_equal,      setborderpx,            {.i = +1 } },
-	{ MODKEY|ControlMask,           XK_numbersign, setborderpx,            {.i = 0 } },
+//	{ MODKEY|ControlMask,           XK_minus,      setborderpx,            {.i = -1 } },
+//	{ MODKEY|ControlMask,           XK_equal,      setborderpx,            {.i = +1 } },
+//	{ MODKEY|ControlMask,           XK_numbersign, setborderpx,            {.i = 0 } },
 	{ MODKEY|ControlMask,           XK_comma,      cyclelayout,            {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period,     cyclelayout,            {.i = +1 } },
 	{ MODKEY,                       XK_c,          spawn,                  SHCMD("rofi -show drun")},
-	{0,	                        XF86XK_AudioLowerVolume,   spawn,         SHCMD("pamixer -d 1; kill -46 $(pidof dwmblocks)") }, 
+	{0,                             XF86XK_AudioRaiseVolume,   spawn,         SHCMD("pamixer -i 5; kill -46 $(pidof dwmblocks)") },
+	{0,	                        XF86XK_AudioLowerVolume,   spawn,         SHCMD("pamixer -d 5; kill -46 $(pidof dwmblocks)") }, 
 	{0,                             XF86XK_AudioMute,          spawn,         SHCMD("pamixer -t; kill -46 $(pidof dwmblocks)") }, 
-	{0,                             XF86XK_AudioRaiseVolume,   spawn,         SHCMD("pamixer -i 1; kill -46 $(pidof dwmblocks)") },
-	{0,	                        XF86XK_MonBrightnessUp,    spawn,         SHCMD("xbacklight -inc 5; kill -45 $(pidof dwmblocks)") },
-	{0,	                        XF86XK_MonBrightnessDown,  spawn,         SHCMD("xbacklight -dec 5; kill -45 $(pidof dwmblocks)") },			
+	{ Mod1Mask,	                XK_Prior,		   spawn,         SHCMD("ddcutil setvcp 10 + 5; kill -47 $(pidof dwmblocks)") },
+	{ Mod1Mask,	                XK_Next,  		   spawn,         SHCMD("ddcutil setvcp 10 - 5; kill -47 $(pidof dwmblocks)") },			
 	{MODKEY,                        XK_u,                      spawn,	  SHCMD("maim -u ~/Screenshot_$(date +%Y_%m_%d_%H%M%S).png && notify-send \"Screenshot Captured\" \"Screenshot_$(date +%Y_%m_%d_%H%M%S)\"")},
 	{MODKEY|ShiftMask,              XK_u,                      spawn,	  SHCMD("maim -us ~/Screenshot_$(date +%Y_%m_%d_%H%M%S).png && notify-send \"Screenshot Captured\" \"Screenshot_$(date +%Y_%m_%d_%H%M%S)\"")},
 	{MODKEY|ShiftMask,		XK_q,       		   spawn,         SHCMD("/home/mitch/.config/rofi/powermenu/type-1/powermenu.sh") },
