@@ -274,7 +274,7 @@ static const Layout layouts[] = {
 
 
 /* key definitions */
-#define MODKEY Mod4Mask
+#define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -311,8 +311,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	{ MODKEY,                       XK_j,          focusstack,             {.i = -1 } },
 	{ MODKEY,                       XK_k,          focusstack,             {.i = +1 } },
-	{ MODKEY|Mod1Mask,              XK_j,          rotatestack,            {.i = +1 } },
-	{ MODKEY|Mod1Mask,              XK_k,          rotatestack,            {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_j,          rotatestack,            {.i = +1 } },
+	{ MODKEY|Mod4Mask,              XK_k,          rotatestack,            {.i = -1 } },
 	{ MODKEY,                       XK_i,          incnmaster,             {.i = +1 } },
 	{ MODKEY,                       XK_d,          incnmaster,             {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_i,          incnstack,              {.i = +1 } },
@@ -322,22 +322,22 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_j,          movestack,              {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_k,          movestack,              {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_Return,     zoom,                   {0} },
-	{ MODKEY|Mod1Mask,              XK_u,          incrgaps,               {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_u,          incrgaps,               {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_i,          incrigaps,              {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_i,          incrigaps,              {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_o,          incrogaps,              {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_o,          incrogaps,              {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_6,          incrihgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_6,          incrihgaps,             {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_7,          incrivgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_7,          incrivgaps,             {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_8,          incrohgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_8,          incrohgaps,             {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_9,          incrovgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_9,          incrovgaps,             {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_0,          togglegaps,             {0} },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_0,          defaultgaps,            {0} },
+	{ MODKEY|Mod4Mask,              XK_u,          incrgaps,               {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,          incrgaps,               {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_i,          incrigaps,              {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,          incrigaps,              {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_o,          incrogaps,              {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,          incrogaps,              {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_6,          incrihgaps,             {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_6,          incrihgaps,             {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_7,          incrivgaps,             {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_7,          incrivgaps,             {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_8,          incrohgaps,             {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_8,          incrohgaps,             {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_9,          incrovgaps,             {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,          incrovgaps,             {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_0,          togglegaps,             {0} },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,          defaultgaps,            {0} },
 	{ MODKEY,                       XK_Tab,        view,                   {0} },
 	{ MODKEY,	                XK_q,          killclient,             {0} },
 	{ MODKEY|ControlMask,           XK_q,          quit,                   {0} },
@@ -345,11 +345,11 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_t,          rotatelayoutaxis,       {.i = +1 } },   /* flextile, 1 = layout axis */
 	{ MODKEY|ControlMask,           XK_Tab,        rotatelayoutaxis,       {.i = +2 } },   /* flextile, 2 = master axis */
 	{ MODKEY|ControlMask|ShiftMask, XK_Tab,        rotatelayoutaxis,       {.i = +3 } },   /* flextile, 3 = stack axis */
-	{ MODKEY|ControlMask|Mod1Mask,  XK_Tab,        rotatelayoutaxis,       {.i = +4 } },   /* flextile, 4 = secondary stack axis */
+	{ MODKEY|ControlMask|Mod4Mask,  XK_Tab,        rotatelayoutaxis,       {.i = +4 } },   /* flextile, 4 = secondary stack axis */
 	{ MODKEY|Mod5Mask,              XK_t,          rotatelayoutaxis,       {.i = -1 } },   /* flextile, 1 = layout axis */
 	{ MODKEY|Mod5Mask,              XK_Tab,        rotatelayoutaxis,       {.i = -2 } },   /* flextile, 2 = master axis */
 	{ MODKEY|Mod5Mask|ShiftMask,    XK_Tab,        rotatelayoutaxis,       {.i = -3 } },   /* flextile, 3 = stack axis */
-	{ MODKEY|Mod5Mask|Mod1Mask,     XK_Tab,        rotatelayoutaxis,       {.i = -4 } },   /* flextile, 4 = secondary stack axis */
+	{ MODKEY|Mod5Mask|Mod4Mask,     XK_Tab,        rotatelayoutaxis,       {.i = -4 } },   /* flextile, 4 = secondary stack axis */
 	{ MODKEY|ControlMask,           XK_Return,     mirrorlayout,           {0} },          /* flextile, flip master and stack areas */
 	{ MODKEY,                       XK_space,      setlayout,              {0} },
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
@@ -371,8 +371,8 @@ static const Key keys[] = {
 	{0,                             XF86XK_AudioRaiseVolume,   spawn,         SHCMD("pamixer -i 5; kill -46 $(pidof dwmblocks)") },
 	{0,	                        XF86XK_AudioLowerVolume,   spawn,         SHCMD("pamixer -d 5; kill -46 $(pidof dwmblocks)") }, 
 	{0,                             XF86XK_AudioMute,          spawn,         SHCMD("pamixer -t; kill -46 $(pidof dwmblocks)") }, 
-	{ Mod1Mask,	                XK_Prior,		   spawn,         SHCMD("ddcutil setvcp 10 + 5; kill -47 $(pidof dwmblocks)") },
-	{ Mod1Mask,	                XK_Next,  		   spawn,         SHCMD("ddcutil setvcp 10 - 5; kill -47 $(pidof dwmblocks)") },			
+	{ Mod4Mask,	                XK_Prior,		   spawn,         SHCMD("ddcutil setvcp 10 + 5; kill -47 $(pidof dwmblocks)") },
+	{ Mod4Mask,	                XK_Next,  		   spawn,         SHCMD("ddcutil setvcp 10 - 5; kill -47 $(pidof dwmblocks)") },			
 	{MODKEY,                        XK_u,                      spawn,	  SHCMD("maim -u ~/Screenshot_$(date +%Y_%m_%d_%H%M%S).png && notify-send \"Screenshot Captured\" \"Screenshot_$(date +%Y_%m_%d_%H%M%S)\"")},
 	{MODKEY|ShiftMask,              XK_u,                      spawn,	  SHCMD("maim -us ~/Screenshot_$(date +%Y_%m_%d_%H%M%S).png && notify-send \"Screenshot Captured\" \"Screenshot_$(date +%Y_%m_%d_%H%M%S)\"")},
 	{MODKEY|ShiftMask,		XK_q,       		   spawn,         SHCMD("/home/mitch/.config/rofi/powermenu/type-1/powermenu.sh") },
