@@ -1,6 +1,6 @@
 # dwm - dynamic window manager
 
-<img src="https://mitchdotnet.net/images/dwm.png">
+<img src="https://mitchdotnet.net/images/dwm6.5.png">
 
 Basically [dwm-flexipatch](https://github.com/bakkeby/dwm-flexipatch) with the following patches:
 
