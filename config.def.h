@@ -132,7 +132,7 @@ static char *colors[][ColCount] = {
 
 
 
-const char *spcmd1[] = {"st", "-n", "scratchpad", "-t", "scratchpad", "-g", "80x24", NULL };
+const char *spcmd1[] = {"st", "-n", "scratchpad", "-t", "scratchpad", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"scratchpad",      spcmd1},
