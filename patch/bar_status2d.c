@@ -7,14 +7,11 @@ width_status2d(Bar *bar, BarArg *a)
 	return width ? width + lrpad : 0;
 }
 
-
 int
 draw_status2d(Bar *bar, BarArg *a)
 {
 	return drawstatusbar(a, rawstext);
 }
-
-
 
 int
 drawstatusbar(BarArg *a, char* stext)
@@ -31,6 +28,7 @@ drawstatusbar(BarArg *a, char* stext)
 		die("malloc");
 	p = text;
 	copyvalidchars(text, stext);
+	text[len] = '\0';
 
 	x += lrpad / 2;
 	drw_setscheme(drw, scheme[LENGTH(colors)]);

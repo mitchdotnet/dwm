@@ -12,15 +12,15 @@ Basically [dwm-flexipatch](https://github.com/bakkeby/dwm-flexipatch) with the f
 - alpha
 - [colorfultags](https://github.com/UtkarshVerma/dwm)
 - statuspadding
+- center
 - cyclelayouts
 - movestack
-- noborder
 - pertag
 - restartsig
 - rotatestack
 - scratchpads
+- scratchpads position & size
 - seamlessrestart
-- setborderpx
 - swallow
 - vanitygaps
   

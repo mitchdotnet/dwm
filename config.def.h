@@ -2,6 +2,10 @@
 
 #include <X11/XF86keysym.h>
 
+/* Helper macros for spawning commands */
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define CMD(...)   { .v = (const char*[]){ __VA_ARGS__, NULL } }
+
 /* appearance */
 static const unsigned int borderpx       = 1;   /* border pixel of windows */
 static const unsigned int snap           = 32;  /* snap pixel */
@@ -13,12 +17,14 @@ static const unsigned int gappov         = 34;  /* vert outer gap between window
 static const int smartgaps_fact          = 1;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
 static const int showbar                 = 1;   /* 0 means no bar */
 static const int topbar                  = 1;   /* 0 means bottom bar */
-#define ICONSIZE 18    /* icon size */
+static const unsigned int colorfultag    = 0;        /* 0 means use SchemeSel for selected tag */
+
+#define ICONSIZE 20    /* icon size */
 #define ICONSPACING 5  /* space between icon and title */
 /* Status is to be shown on: -1 (all monitors), 0 (a specific monitor by index), 'A' (active monitor) */
 static const int statusmon               = 'A';
 static const int horizpadbar             = 2;   /* horizontal padding for statusbar */
-static const int vertpadbar              = 12;  /* vertical padding for statusbar */
+static const int vertpadbar              = 12;   /* vertical padding for statusbar */
 static const unsigned int ulinepad = 5;         /* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke  = 2;     /* thickness / height of the underline */
 static const unsigned int ulinevoffset = 2;     /* how far above the bottom of the bar the line should appear */
@@ -28,7 +34,7 @@ static const int ulineall = 0;                  /* 1 to show underline on all ta
 static int tagindicatortype              = INDICATOR_NONE;
 static int tiledindicatortype            = INDICATOR_NONE;
 static int floatindicatortype            = INDICATOR_NONE;
-static const char *fonts[]               = {"Inconsolata Semi Condensed Bold:size=13:antialias=true:autohint=true", "Font Awesome 6 Pro:style=solid:size=11"};
+static const char *fonts[]               = { "Inconsolata Semi Condensed Bold:size=13:antialias=true:autohint=true", "Font Awesome 6 Pro:style=solid:size=11" };
 static const char dmenufont[]            = "monospace:size=10";
 
 static char c000000[]                    = "#000000"; // placeholder value
@@ -79,7 +85,6 @@ static char tagactivebgcolor[]		 = "#000000";
 static char layoutfgcolor[]              = "#dddddd";
 static char layoutbgcolor[]              = "#000000";
 
-
 static const unsigned int baralpha = 0;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3] = {
@@ -106,16 +111,16 @@ static const unsigned int alphas[][3] = {
 };
 
 static char *colors[][ColCount] = {
-	/*                       fg                     bg                     border                float */
-	[SchemeNorm]         = { normfgcolor,           normbgcolor,           normbordercolor,      normfloatcolor },
-	[SchemeSel]          = { selfgcolor,            selbgcolor,            selbordercolor,       selfloatcolor },
-	[SchemeTitleNorm]    = { titlenormfgcolor,      titlenormbgcolor,      titlenormbordercolor, titlenormfloatcolor },
-	[SchemeTitleSel]     = { titleselfgcolor,       titleselbgcolor,       titleselbordercolor,  titleselfloatcolor },
-	[SchemeTagsNorm]     = { tagsnormfgcolor,       tagsnormbgcolor,       tagsnormbordercolor,  tagsnormfloatcolor },
-	[SchemeTagsSel]      = { tagsselfgcolor,        tagsselbgcolor,        tagsselbordercolor,   tagsselfloatcolor },
-	[SchemeHidNorm]      = { hidnormfgcolor,        hidnormbgcolor,        c000000,              c000000 },
-	[SchemeHidSel]       = { hidselfgcolor,         hidselbgcolor,         c000000,              c000000 },
-	[SchemeUrg]          = { urgfgcolor,            urgbgcolor,            urgbordercolor,       urgfloatcolor },
+	/*                       fg                bg                border                float */
+	[SchemeNorm]         = { normfgcolor,      normbgcolor,      normbordercolor,      normfloatcolor },
+	[SchemeSel]          = { selfgcolor,       selbgcolor,       selbordercolor,       selfloatcolor },
+	[SchemeTitleNorm]    = { titlenormfgcolor, titlenormbgcolor, titlenormbordercolor, titlenormfloatcolor },
+	[SchemeTitleSel]     = { titleselfgcolor,  titleselbgcolor,  titleselbordercolor,  titleselfloatcolor },
+	[SchemeTagsNorm]     = { tagsnormfgcolor,  tagsnormbgcolor,  tagsnormbordercolor,  tagsnormfloatcolor },
+	[SchemeTagsSel]      = { tagsselfgcolor,   tagsselbgcolor,   tagsselbordercolor,   tagsselfloatcolor },
+	[SchemeHidNorm]      = { hidnormfgcolor,   hidnormbgcolor,   c000000,              c000000 },
+	[SchemeHidSel]       = { hidselfgcolor,    hidselbgcolor,    c000000,              c000000 },
+	[SchemeUrg]          = { urgfgcolor,       urgbgcolor,       urgbordercolor,       urgfloatcolor },
 	[SchemeTag1]         = { tagactivefgcolor,      tagactivebgcolor,      c000000 },
 	[SchemeTag2]         = { tagactivefgcolor,      tagactivebgcolor,      c000000 },
 	[SchemeTag3]         = { tagactivefgcolor,      tagactivebgcolor,      c000000 },
@@ -126,13 +131,9 @@ static char *colors[][ColCount] = {
 	[SchemeTag8]         = { tagactivefgcolor,      tagactivebgcolor,      c000000 },
 	[SchemeTag9]         = { tagactivefgcolor,      tagactivebgcolor,      c000000 },
 	[SchemeLayout]       = { layoutfgcolor,         layoutbgcolor,    c000000 },
-
 };
 
-
-
-
-const char *spcmd1[] = {"st", "-n", "scratchpad", "-t", "scratchpad", NULL };
+const char *spcmd1[] = {"st", "-n", "scratchpad", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"scratchpad",      spcmd1},
@@ -172,7 +173,6 @@ static char *tagicons[][NUMTAGS] =
 	[ALT_TAGS_DECORATION] = { "<1>", "<2>", "<3>", "<4>", "<5>", "<6>", "<7>", "<8>", "<9>" },
 };
 
-
 /* There are two options when it comes to per-client rules:
  *  - a typical struct table or
  *  - using the RULE macro
@@ -191,7 +191,7 @@ static char *tagicons[][NUMTAGS] =
  * Refer to the Rule struct definition for the list of available fields depending on
  * the patches you enable.
  */
- static const Rule rules[] = {
+static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
@@ -234,44 +234,28 @@ static const BarRule barrules[] = {
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int nstack      = 0;    /* number of clients in primary stack area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 #define FORCE_VSPLIT 1
 
-
 static const Layout layouts[] = {
-	/* symbol     arrange function, { nmaster, nstack, layout, master axis, stack axis, secondary stack axis, symbol func } */
-	{ "[]=",      flextile,         { -1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0, NULL } }, // default tile layout
- 	{ "><>",      NULL,             {0} },    /* no layout function means floating behavior */
-	{ "[M]",      flextile,         { -1, -1, NO_SPLIT, MONOCLE, MONOCLE, 0, NULL } }, // monocle
-	{ "|||",      flextile,         { -1, -1, SPLIT_VERTICAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM, 0, NULL } }, // columns (col) layout
-	{ ">M>",      flextile,         { -1, -1, FLOATING_MASTER, LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0, NULL } }, // floating master
-	{ "[D]",      flextile,         { -1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, MONOCLE, 0, NULL } }, // deck
-	{ "TTT",      flextile,         { -1, -1, SPLIT_HORIZONTAL, LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0, NULL } }, // bstack
-	{ "===",      flextile,         { -1, -1, SPLIT_HORIZONTAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM, 0, NULL } }, // bstackhoriz
-	{ "|M|",      flextile,         { -1, -1, SPLIT_CENTERED_VERTICAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM, TOP_TO_BOTTOM, NULL } }, // centeredmaster
-	{ "-M-",      flextile,         { -1, -1, SPLIT_CENTERED_HORIZONTAL, TOP_TO_BOTTOM, LEFT_TO_RIGHT, LEFT_TO_RIGHT, NULL } }, // centeredmaster horiz
-	{ ":::",      flextile,         { -1, -1, NO_SPLIT, GAPPLESSGRID, GAPPLESSGRID, 0, NULL } }, // gappless grid
-	{ "[\\]",     flextile,         { -1, -1, NO_SPLIT, DWINDLE, DWINDLE, 0, NULL } }, // fibonacci dwindle
-	{ "(@)",      flextile,         { -1, -1, NO_SPLIT, SPIRAL, SPIRAL, 0, NULL } }, // fibonacci spiral
-	{ "[T]",      flextile,         { -1, -1, SPLIT_VERTICAL, LEFT_TO_RIGHT, TATAMI, 0, NULL } }, // tatami mats
-	{ "[]=",      tile,             {0} },
-	{ "[M]",      monocle,          {0} },
-	{ "TTT",      bstack,           {0} },
-	{ "===",      bstackhoriz,      {0} },
-	{ "|M|",      centeredmaster,   {0} },
-	{ ">M>",      centeredfloatingmaster, {0} },
-	{ "|||",      col,              {0} },
-	{ "[D]",      deck,             {0} },
-	{ "(@)",      spiral,           {0} },
-	{ "[\\]",     dwindle,          {0} },
-	{ "HHH",      grid,             {0} },
-	{ "---",      horizgrid,        {0} },
-	{ "###",      nrowgrid,         {0} },
+	/* symbol     arrange function */
+	{ "[]=",      tile },    /* first entry is default */
+	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "[M]",      monocle },
+	{ "TTT",      bstack },
+	{ "===",      bstackhoriz },
+	{ "|M|",      centeredmaster },
+	{ "|||",      col },
+	{ "[D]",      deck },
+	{ "(@)",      spiral },
+	{ "[\\]",     dwindle },
+	{ "HHH",      grid },
+	{ "---",      horizgrid },
+	{ ":::",      gaplessgrid },
+	{ "###",      nrowgrid },
 };
-
 
 /* key definitions */
 #define MODKEY Mod1Mask
@@ -280,11 +264,6 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
-
-
-
-/* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -303,7 +282,6 @@ static const char *termcmd[]  = { "st", NULL };
 /* This defines the name of the executable that handles the bar (used for signalling purposes) */
 #define STATUSBAR "dwmblocks"
 
-
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
 	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
@@ -311,12 +289,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	{ MODKEY,                       XK_j,          focusstack,             {.i = -1 } },
 	{ MODKEY,                       XK_k,          focusstack,             {.i = +1 } },
-	{ MODKEY|Mod4Mask,              XK_j,          rotatestack,            {.i = +1 } },
-	{ MODKEY|Mod4Mask,              XK_k,          rotatestack,            {.i = -1 } },
 	{ MODKEY,                       XK_i,          incnmaster,             {.i = +1 } },
 	{ MODKEY,                       XK_d,          incnmaster,             {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_i,          incnstack,              {.i = +1 } },
-	{ MODKEY|ControlMask,           XK_u,          incnstack,              {.i = -1 } },
 	{ MODKEY,                       XK_h,          setmfact,               {.f = -0.05} },
 	{ MODKEY,                       XK_l,          setmfact,               {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_j,          movestack,              {.i = -1 } },
@@ -342,15 +316,6 @@ static const Key keys[] = {
 	{ MODKEY,	                XK_q,          killclient,             {0} },
 	{ MODKEY|ControlMask,           XK_q,          quit,                   {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_q,          quit,                   {1} },
-	{ MODKEY|ControlMask,           XK_t,          rotatelayoutaxis,       {.i = +1 } },   /* flextile, 1 = layout axis */
-	{ MODKEY|ControlMask,           XK_Tab,        rotatelayoutaxis,       {.i = +2 } },   /* flextile, 2 = master axis */
-	{ MODKEY|ControlMask|ShiftMask, XK_Tab,        rotatelayoutaxis,       {.i = +3 } },   /* flextile, 3 = stack axis */
-	{ MODKEY|ControlMask|Mod4Mask,  XK_Tab,        rotatelayoutaxis,       {.i = +4 } },   /* flextile, 4 = secondary stack axis */
-	{ MODKEY|Mod5Mask,              XK_t,          rotatelayoutaxis,       {.i = -1 } },   /* flextile, 1 = layout axis */
-	{ MODKEY|Mod5Mask,              XK_Tab,        rotatelayoutaxis,       {.i = -2 } },   /* flextile, 2 = master axis */
-	{ MODKEY|Mod5Mask|ShiftMask,    XK_Tab,        rotatelayoutaxis,       {.i = -3 } },   /* flextile, 3 = stack axis */
-	{ MODKEY|Mod5Mask|Mod4Mask,     XK_Tab,        rotatelayoutaxis,       {.i = -4 } },   /* flextile, 4 = secondary stack axis */
-	{ MODKEY|ControlMask,           XK_Return,     mirrorlayout,           {0} },          /* flextile, flip master and stack areas */
 	{ MODKEY,                       XK_space,      setlayout,              {0} },
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
 	{ MODKEY,                       XK_grave,      togglescratch,          {.ui = 0 } },
@@ -362,9 +327,6 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period,     focusmon,               {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,      tagmon,                 {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
-//	{ MODKEY|ControlMask,           XK_minus,      setborderpx,            {.i = -1 } },
-//	{ MODKEY|ControlMask,           XK_equal,      setborderpx,            {.i = +1 } },
-//	{ MODKEY|ControlMask,           XK_numbersign, setborderpx,            {.i = 0 } },
 	{ MODKEY|ControlMask,           XK_comma,      cyclelayout,            {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period,     cyclelayout,            {.i = +1 } },
 	{ MODKEY,                       XK_c,          spawn,                  SHCMD("rofi -show drun")},
@@ -388,7 +350,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                                  8)
 };
 
-
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
@@ -407,5 +368,4 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,              Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,              Button3,        toggletag,      {0} },
 };
-
 
